@@ -1,0 +1,62 @@
+# Questions and Options
+questions = [
+    {
+        "question": "What is the capital of France?",
+        "options": ["A. Paris", "B. Rome", "C. Berlin", "D. Madrid"],
+        "answer": "A"
+    },
+    {
+        "question": "Which language is primarily used for web development?",
+        "options": ["A. Python", "B. JavaScript", "C. C++", "D. Java"],
+        "answer": "B"
+    },
+    {
+        "question": "Who wrote 'To Kill a Mockingbird'?",
+        "options": ["A. Harper Lee", "B. Mark Twain", "C. J.K. Rowling", "D. Ernest Hemingway"],
+        "answer": "A"
+    }
+]
+
+# Function to evaluate score
+def evaluate_score(answers, correct_answers):
+    score = 0
+    for user_answer, correct_answer in zip(answers, correct_answers):
+        if user_answer.upper() == correct_answer:
+            score += 1
+    return score
+
+# Function to ask questions and get user input
+def ask_question(question_data):
+    print(question_data["question"])
+    for option in question_data["options"]:
+        print(option)
+    user_answer = input("Please enter the letter of your answer: ").upper()
+    
+    while user_answer not in ["A", "B", "C", "D"]:
+        user_answer = input("Invalid input. Please enter A, B, C, or D: ").upper()
+    
+    return user_answer
+
+# Function to provide feedback
+def provide_feedback(user_answer, correct_answer):
+    if user_answer == correct_answer:
+        print("Correct!")
+    else:
+        print(f"Incorrect. The correct answer is {correct_answer}.")
+
+# Main quiz logic
+def main_quiz(questions):
+    user_answers = []
+    correct_answers = [q["answer"] for q in questions]
+
+    for question_data in questions:
+        user_answer = ask_question(question_data)
+        user_answers.append(user_answer)
+        provide_feedback(user_answer, question_data["answer"])
+        print()
+
+    final_score = evaluate_score(user_answers, correct_answers)
+    print(f"Your final score is {final_score}/{len(questions)}.")
+
+if __name__ == "__main__":
+    main_quiz(questions)
